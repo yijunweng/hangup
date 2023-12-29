@@ -1,5 +1,5 @@
 import sys
-from dxc import dbdl, xkly, bfdl, yszd, mwdl
+from constant import dbdl, xkly, bfdl, yszd, mwdl
 from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout, QHBoxLayout, QCheckBox, QPushButton, QGroupBox, QLabel, QLineEdit
 from operate import start
 
@@ -79,22 +79,21 @@ class MyWindow(QWidget):
             all_checkboxes_lists.append(checkboxes_list)
 
         # 创建按钮
-        button = QPushButton("开始挂机")
-        main_layout.addWidget(button)
+        button_hangup = QPushButton("开始挂机")
+        main_layout.addWidget(button_hangup)
 
         # 设置主布局
         self.setLayout(main_layout)
 
         # 连接按钮的点击事件
-        button.clicked.connect(self.get_checked_checkbox_data)
+        button_hangup.clicked.connect(self.get_checked_checkbox_data)
 
         # 存储所有多选框的列表
         self.all_checkboxes_lists = all_checkboxes_lists
 
-    def get_checked_checkbox_data(self):
     # 获取用户输入的时长
+    def get_checked_checkbox_data(self):
         duration = self.duration_input.text()
-
         try:
             duration = int(duration)
             # 验证时长在30到120之间
@@ -116,8 +115,10 @@ class MyWindow(QWidget):
                     selected_options.append(data)
         
         start(selected_options, duration)
-                    
-
+        print("所选地下城已完成！")
+        
+        #关闭窗口
+        self.close()
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)

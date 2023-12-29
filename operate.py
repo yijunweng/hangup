@@ -2,7 +2,7 @@ import pyautogui
 import time
 from simulate_mouse_drag import simulate_mouse_drag
 from get_absolute_position import get_absolute_position
-from dxc import dbdl, xkly
+from constant import ad_posistions
 
 # 界面操作类
 
@@ -24,24 +24,34 @@ def imitate_click(p_x, p_y):
 
 # 打开地下城列表
 def openList():
-    imitate_click(10.5, 18)
-    imitate_click(23.5, 28)
+    imitate_click(7, 18)
+    imitate_click(23, 28)
 
 # 进入地下城
-def enter():
-    imitate_click(46, 82.5)
+def enter_dxc():
+    imitate_click(50, 82)
 
 # 清空背包
 def clearBag():
-    imitate_click(31, 95)
-    imitate_click(55.5, 87)
-    imitate_click(66, 80)
-    imitate_click(46, 80)
-    imitate_click(66, 80)
+    imitate_click(32, 95)
+    imitate_click(61, 87)
+    imitate_click(74, 80)
+    imitate_click(50, 80)
+    imitate_click(74, 80)
     print('背包已清空')
     reset()
 
-# 开启脚本
+# 进入商店(广告)
+def enter_store():
+    imitate_click(86, 94)
+    imitate_click(16, 58)
+    imitate_click(33, 75)
+
+# 播放广告
+def play_ad():
+    imitate_click(50, 62)
+
+# 自动地下城
 def start(targets, seconds):
     time.sleep(2) # sleep 2秒等待控制权释放
 
@@ -54,9 +64,26 @@ def start(targets, seconds):
         if item["index"] > 10: simulate_mouse_drag()  # 10以后的副本要执行拖动事件
         # 选择副本
         imitate_click(item["dxcPosition"][0], item["dxcPosition"][1])
-        enter()
+        enter_dxc()
         time.sleep(seconds)
         print(f'当前大陆：{ item["region_name"] }, 地下城{ item["dxc_name"] }已完成, 进度{ index + 1 }/{len(targets)}')
         clearBag()
 
-    
+
+# 自动广告
+def start_ad(arr): 
+    time.sleep(2) # sleep 2秒等待控制权释放
+
+    for index, item in enumerate(arr):
+        for _ in range(item): 
+            reset()
+            enter_store()
+            imitate_click(ad_posistions[index][0], ad_posistions[index][1]) # 点击对应位置的道具
+            play_ad() # 开始播放广告
+            time.sleep(90) # 广告兼容时长为90秒
+            imitate_click(92.5, 4.7) # 点击关闭广告按钮
+            reset() # 关闭所有浮层
+            time.sleep(180) # 广告cd三分钟
+    print("广告自动播放已完成！")
+ 
+
