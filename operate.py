@@ -24,8 +24,8 @@ def imitate_click(p_x, p_y):
 
 # 打开地下城列表
 def openList():
-    imitate_click(7, 18)
-    imitate_click(23, 28)
+    imitate_click(7, 15)
+    imitate_click(23, 26)
 
 # 进入地下城
 def enter_dxc():
@@ -51,10 +51,23 @@ def enter_store():
 def play_ad():
     imitate_click(50, 62)
 
+# 切换角色
+def changeRole(roleTarget):
+    imitate_click(86, 10)   #设置
+    imitate_click(48, 80)   #切换角色
+    imitate_click(roleTarget[0], roleTarget[1])
+    imitate_click(47, 53)   #进入游戏
+
 # 自动地下城
 def start(targets, seconds):
+    # print(roles)
     time.sleep(2) # sleep 2秒等待控制权释放
+    imitate_click(50, 95)
 
+   # for role in enumerate(roles):
+   #     print(role)
+   #     changeRole(role["target"])
+   #     time.sleep(10)
     for index, item in enumerate(targets):
         reset()
         openList()
@@ -68,11 +81,13 @@ def start(targets, seconds):
         time.sleep(seconds)
         print(f'当前大陆：{ item["region_name"] }, 地下城{ item["dxc_name"] }已完成, 进度{ index + 1 }/{len(targets)}')
         clearBag()
+    
 
 
 # 自动广告
 def start_ad(arr): 
     time.sleep(2) # sleep 2秒等待控制权释放
+    imitate_click(90, 95)
 
     for index, item in enumerate(arr):
         for _ in range(item): 
@@ -81,7 +96,16 @@ def start_ad(arr):
             imitate_click(ad_posistions[index][0], ad_posistions[index][1]) # 点击对应位置的道具
             play_ad() # 开始播放广告
             time.sleep(90) # 广告兼容时长为90秒
-            imitate_click(92.5, 4.7) # 点击关闭广告按钮
+            # imitate_click(85.5, 5.2) # 点击关闭广告按钮
+            # imitate_click(86.5, 5.2) # 点击关闭广告按钮
+            # imitate_click(87.5, 5.2) # 点击关闭广告按钮
+            # imitate_click(88.5, 5.2) # 点击关闭广告按钮
+            # imitate_click(89.5, 5.2) # 点击关闭广告按钮
+            # imitate_click(90.5, 5.2) # 点击关闭广告按钮
+            # imitate_click(91.5, 5.2) # 点击关闭广告按钮
+            # imitate_click(92.5, 5.2) # 点击关闭广告按钮
+            # imitate_click(93.5, 5.2) # 点击关闭广告按钮
+            imitate_click(94.5, 5.2) # 点击关闭广告按钮
             reset() # 关闭所有浮层
             time.sleep(180) # 广告cd三分钟
     print("广告自动播放已完成！")

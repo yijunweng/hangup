@@ -1,5 +1,5 @@
 import sys
-from constant import dbdl, xkly, bfdl, yszd, mwdl
+from constant import dbdl, xkly, bfdl, yszd, mwdl, aydl, roles
 from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout, QHBoxLayout, QCheckBox, QPushButton, QGroupBox, QLabel, QLineEdit
 from operate import start
 
@@ -96,9 +96,9 @@ class MyWindow(QWidget):
         duration = self.duration_input.text()
         try:
             duration = int(duration)
-            # 验证时长在30到120之间
-            if not 30 <= duration <= 120:
-                raise ValueError("时长应在30到120之间")
+            # 验证时长在30到200之间
+            if not 30 <= duration <= 200:
+                raise ValueError("时长应在30到200之间")
         except ValueError as e:
             print(f"无效的时长：{e}")
             return
@@ -118,7 +118,7 @@ class MyWindow(QWidget):
         print("所选地下城已完成！")
         
         #关闭窗口
-        self.close()
+        # self.close()
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
