@@ -59,28 +59,27 @@ def changeRole(roleTarget):
     imitate_click(47, 53)   #进入游戏
 
 # 自动地下城
-def start(targets, seconds):
-    # print(roles)
+def start(targets, seconds, roles):
     time.sleep(2) # sleep 2秒等待控制权释放
     imitate_click(50, 95)
 
-   # for role in enumerate(roles):
-   #     print(role)
-   #     changeRole(role["target"])
-   #     time.sleep(10)
-    for index, item in enumerate(targets):
-        reset()
-        openList()
-        print(f'当前大陆：{ item["region_name"] }, 当前地下城：{ item["dxc_name"] }, 进度{ index }/{ len(targets) }')
-        # 选择大陆
-        imitate_click(item["regionPosition"][0], item["regionPosition"][1])
-        if item["index"] > 10: simulate_mouse_drag()  # 10以后的副本要执行拖动事件
-        # 选择副本
-        imitate_click(item["dxcPosition"][0], item["dxcPosition"][1])
-        enter_dxc()
-        time.sleep(seconds)
-        print(f'当前大陆：{ item["region_name"] }, 地下城{ item["dxc_name"] }已完成, 进度{ index + 1 }/{len(targets)}')
-        clearBag()
+    for role in roles:
+       print(role["target"])
+       changeRole(role["target"])
+       time.sleep(10)
+       for index, item in enumerate(targets):
+           reset()
+           openList()
+           print(f'当前大陆：{ item["region_name"] }, 当前地下城：{ item["dxc_name"] }, 进度{ index }/{ len(targets) }')
+           # 选择大陆
+           imitate_click(item["regionPosition"][0], item["regionPosition"][1])
+           if item["index"] > 10: simulate_mouse_drag()  # 10以后的副本要执行拖动事件
+           # 选择副本
+           imitate_click(item["dxcPosition"][0], item["dxcPosition"][1])
+           enter_dxc()
+           time.sleep(seconds)
+           print(f'当前大陆：{ item["region_name"] }, 地下城{ item["dxc_name"] }已完成, 进度{ index + 1 }/{len(targets)}')
+           clearBag()
     
 
 

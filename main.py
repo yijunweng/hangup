@@ -39,6 +39,33 @@ class MyWindow(QWidget):
         # 添加横向布局到主布局
         main_layout.addLayout(duration_layout)
 
+        # 创建角色多选框
+        role_groupbox = QGroupBox("角色选择")
+        role_layout = QVBoxLayout()
+
+        self.role_checkboxes = []
+
+        # 每行显示的角色个数
+        roles_per_row = 5
+        role_row_layout = None
+
+        for i, role in enumerate(roles):
+            if i % roles_per_row == 0:
+                if role_row_layout is not None:
+                    role_layout.addLayout(role_row_layout)
+                role_row_layout = QHBoxLayout()
+
+            checkbox = QCheckBox(role["role"])
+            checkbox.setProperty("data", role)
+            role_row_layout.addWidget(checkbox)
+            self.role_checkboxes.append(checkbox)
+
+        if role_row_layout is not None:
+            role_layout.addLayout(role_row_layout)
+
+        role_groupbox.setLayout(role_layout)
+        main_layout.addWidget(role_groupbox)
+
         for group_name, data_list in data_lists.items():
             # 创建组
             group = QGroupBox(group_name) # 创建group，并赋值name
@@ -92,7 +119,7 @@ class MyWindow(QWidget):
         # 存储所有多选框的列表
         self.all_checkboxes_lists = all_checkboxes_lists
 
-    # 获取用户输入的时长
+    # 获取用户输入的时长和选中的角色
     def get_checked_checkbox_data(self):
         duration = self.duration_input.text()
         try:
@@ -104,22 +131,29 @@ class MyWindow(QWidget):
             print(f"无效的时长：{e}")
             return
 
-        # 存储被选中的选项
+        # 存储被选中的地下城
         selected_options = []
 
-        # 遍历所有多选框的列表
+        # 遍历选中的地下城多选框
         for checkboxes_list in self.all_checkboxes_lists:
             for checkbox in checkboxes_list:
                 if checkbox.isChecked():
                     data = checkbox.property("data")
                     print(f"选中的多选框文本: {checkbox.text()}, 绑定的数据: {data}")
                     selected_options.append(data)
-        
-        start(selected_options, duration)
+
+        # 存储被选中的角色
+        selected_roles = []
+        for checkbox in self.role_checkboxes:
+            if checkbox.isChecked():
+                data = checkbox.property("data")
+                print(f"选中的多选框文本: {checkbox.text()}, 绑定的数据: {data}")
+                selected_roles.append(data)
+
+        print("选中的角色：", selected_roles)
+
+        start(selected_options, duration, selected_roles)
         print("所选地下城已完成！")
-        
-        #关闭窗口
-        # self.close()
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
