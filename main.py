@@ -22,7 +22,8 @@ class MyWindow(QWidget):
             "虚空领域": xkly,
             "冰封大陆": bfdl,
             "元素之地": yszd,
-            "迷雾大陆": mwdl
+            "迷雾大陆": mwdl,
+            "暗影大陆": aydl
         }
 
         # 创建时长输入框和标签
