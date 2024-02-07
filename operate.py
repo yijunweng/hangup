@@ -60,11 +60,11 @@ def changeRole(roleTarget):
 
 # 重启游戏
 def reLuanch():
-    imitate_click(30.5, 1.5) #退出
+    imitate_click(30, 2) #退出
     time.sleep(2)
-    imitate_click(35.5, 1.5) #打开进程
+    imitate_click(35.5, 2) #打开进程
     time.sleep(2)
-    imitate_click(82, 8) #清除
+    imitate_click(83, 8) #清除
     time.sleep(2)
     imitate_click(75, 23) #打开游戏
     time.sleep(10)
@@ -88,7 +88,7 @@ def start(targets, seconds, roles):
            print(f'当前大陆：{ item["region_name"] }, 当前地下城：{ item["dxc_name"] }, 进度{ index }/{ len(targets) }')
            # 选择大陆
            imitate_click(item["regionPosition"][0], item["regionPosition"][1])
-           if item["index"] > 10: simulate_mouse_drag()  # 10以后的副本要执行拖动事件
+           if item["index"] > 10: simulate_mouse_drag([47, 65], [47, 35])  # 10以后的副本要执行拖动事件
            # 选择副本
            imitate_click(item["dxcPosition"][0], item["dxcPosition"][1])
            enter_dxc()
@@ -109,6 +109,9 @@ def start_ad(arr):
             enter_store()
             imitate_click(ad_posistions[index][0], ad_posistions[index][1]) # 点击对应位置的道具
             play_ad() # 开始播放广告
+            # for i in range(1, 20):
+            #     simulate_mouse_drag([92.5, 85], [92.5, 20])
+            #     time.sleep(2)
             time.sleep(90) # 广告兼容时长为90秒
             reLuanch()
             time.sleep(180) # 广告cd三分钟

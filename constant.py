@@ -10,32 +10,36 @@ class Dxc:
 # 角色
 roles = [
     {
-        "role": "法师",
+        "role": "战士",
         "target": [14, 65]
     },
     {
-        "role": "盗贼",
+        "role": "法师",
         "target": [30, 65]
     },
     {
-        "role": "猎人",
+        "role": "盗贼",
         "target": [46, 65]
     },
     {
-        "role": "圣骑士",
+        "role": "猎人",
         "target": [64, 65]
     },
     {
-        "role": "术士",
+        "role": "圣骑",
         "target": [80, 65]
     },
     {
-        "role": "牧师",
+        "role": "术士",
         "target": [14, 76]
     },
     {
-        "role": "死亡骑士",
+        "role": "牧师",
         "target": [30, 76]
+    },
+    {
+        "role": "死亡骑士",
+        "target": [46, 76]
     }
 ]
 
